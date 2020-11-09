@@ -9,8 +9,5 @@ export default {
     gotoGITHUB () {
       window.open('https://github.com/lhyUnited/lhyUnited.github.io')
     },
-
-    localStorage1 () { }
-
   }
 }
