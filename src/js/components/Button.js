@@ -1,10 +1,16 @@
 export default {
   name: 'Button',
-  template: '<button @click="gotoGITHUB">{{value}}</button>',
+  template: `
+  <div>
+    <button @click="gotoGITHUB">{{value}}</button>
+  </div>`,
   props: ['value'],
   methods: {
     gotoGITHUB () {
-      window.open('https://github.com/lhyUnited')
-    }
+      window.open('https://github.com/lhyUnited/lhyUnited.github.io')
+    },
+
+    localStorage1 () { }
+
   }
 }

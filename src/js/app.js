@@ -8,7 +8,7 @@ const app = new Vue({
   },
   data () {
     return {
-      msg: 'LHY💓HY'
+      msg: 'Hello World'
     }
   }
 })

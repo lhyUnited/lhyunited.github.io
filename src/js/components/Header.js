@@ -10,8 +10,7 @@ const Header = {
   props: ['msg'],
   data () {
     return {
-      msg: 'LOL123',
-      value: 'git'
+      value: 'lhyUnited'
     }
   }
 }
