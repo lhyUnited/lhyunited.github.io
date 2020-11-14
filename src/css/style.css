@@ -7,7 +7,6 @@
 body {
   width: 100vw;
   height: 100vh;
-  background: black;
   font-family: sans-serif;
 }
 
@@ -15,20 +14,28 @@ body {
   height: 100%;
 }
 
-section {
-  text-align: center;
-  color: white;
-  font-size: 80px;
+.main {
+  /* text-align: center; */
+  /* color: white; */
+  /* font-size: 80px; */
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
 }
 
-section h1 {
-  line-height: 100%;
+#canvas {
+  position: absolute;
+  z-index: -1;
 }
 
-button {
-  font-size: 20px;
+.title {
+  letter-spacing: 10px;
+  font-size: 45px;
+  position: absolute;
+  color: rgb(255, 255, 0);
+  z-index: 1;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
 }
