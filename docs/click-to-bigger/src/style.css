@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main img {
+  width: 400px;
+  cursor: zoom-in; 
+}
+
+.mask {
+  background-color: rgba(0,0,0,.45);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  height: 100%;
+}
+.bigger-wrapper {
+  display: none;
+  min-width: 1080px;
+}
+
+.img-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  height: 100%;
+}
+
+.img-wrapper img {
+  position: absolute;
+  display: block;
+  max-width: 100%;
+  max-height: 100vh;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: zoom-out;
+}
