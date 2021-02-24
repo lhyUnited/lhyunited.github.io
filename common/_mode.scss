@@ -57,6 +57,7 @@ html {
   --toggle-moon: var(--color-scale-yellow-0);
   --text-common: var(--color-scale-gray-1);
   --text-link: var(--color-scale-blue-2);
+  --link-underline: var(--color-scale-yellow-0);
 }
 
 [data-color-mode=light] {
@@ -67,6 +68,7 @@ html {
   --toggle-moon: var(--color-scale-yellow-4);
   --text-common: var(--color-scale-black);
   --text-link: var(--color-scale-blue-5);
+  --link-underline: var(--color-scale-yellow-4);
 }
 
 [data-color-mode=dark] .toggle-wrapper .thumb {
@@ -77,19 +79,6 @@ body {
   background-color: var(--background);
 }
 
-a {
-  text-decoration: none;
-  color: var(--text-link);
- }
- 
-a:hover {
-text-decoration: underline;
-}
-
-img {
-  max-width: 100%;
-}
-
 .toggle-wrapper {
   position: absolute;
   top: 20px;
@@ -98,6 +87,7 @@ img {
 }
 
 .toggle-wrapper .track {
+  user-select: none;
   width: 42px;
   height: 24px;
   border-radius: 24px;
@@ -114,10 +104,4 @@ img {
   border-radius: 50%;
   transition: transform 0.3s ease;
   background-color: var(--thumb-bg);
-}
-
-.text-wrapper {
-  width: 80%;
-  margin: 20px auto 0;
-  color: var(--text-common);
 }

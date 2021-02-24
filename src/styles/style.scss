@@ -1,0 +1,61 @@
+@import '../../common/link';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+#app {
+  height: 100%;
+}
+
+.main {
+  height: 100%;
+}
+
+#canvas {
+  position: absolute;
+  z-index: -1;
+}
+
+.title {
+  letter-spacing: 10px;
+  font-size: 45px;
+  position: absolute;
+  color: rgb(255, 255, 0);
+  z-index: 1;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.my-footer {
+  position: absolute;
+  bottom: 0px;
+  height: 180px;
+  width: 100%;
+  background-color: rgb(255, 255, 0);
+
+  ul {
+    list-style-type: none;
+    text-align: center;
+
+    li {
+      font-size: 22px;
+      font-weight: 400;
+      display: inline-block;
+      color: #000;
+      margin: 0 30px;
+
+      a:hover:after {
+        background-color: #000;
+      }
+    }
+  }
+}
