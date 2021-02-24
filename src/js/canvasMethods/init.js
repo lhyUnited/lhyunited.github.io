@@ -16,8 +16,6 @@ function init (canvas, ctx) {
 function handleMousemove (e) {
   resetCanvas()
   const fillStyle = 'rgb(0,0,0)'
-  // console.log(e.clientX, e.clientY)
-  // if (e.clientX > 511)
   drawRect(_ctx,
     {
       w: e.clientX,
@@ -29,7 +27,6 @@ function handleMousemove (e) {
   console.log(e.clientX, titleConfig.x)
   if ((e.clientX < titleConfig.x + 25 && e.clientX > titleConfig.x - 25) &&
       (e.clientY < titleConfig.y + 25 && e.clientY > titleConfig.y - 25)) {
-    // alert('yes')
     // 锁住鼠标
     block()
   }
