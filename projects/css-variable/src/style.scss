@@ -1,1 +1,10 @@
 @import '../../../common/common';
+.text-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  color: var(--text-common);
+
+  img {
+    width: 100%;
+  }
+}
