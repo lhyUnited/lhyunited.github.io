@@ -1,0 +1,21 @@
+// 全局超链接样式
+a {
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  color: var(--text-link);
+  display: inline-block;
+  width: auto;
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 1px;
+    background-color: var(--link-underline);
+    transition: all 0.2s ease-in-out;
+  }
+}

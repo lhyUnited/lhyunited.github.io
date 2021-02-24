@@ -1,3 +1,4 @@
+@import '../../common/link';
 * {
   margin: 0;
   padding: 0;
@@ -51,25 +52,10 @@ body {
       display: inline-block;
       color: #000;
       margin: 0 30px;
+
+      a:hover:after {
+        background-color: #000;
+      }
     }
-  }
-}
-// 全局超链接样式
-a {
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  color: #000;
-
-  &:hover::after {
-    width: 100%;
-  }
-
-  &::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 1px;
-    background-color: #000;
-    transition: all 0.2s ease-in-out;
   }
 }
