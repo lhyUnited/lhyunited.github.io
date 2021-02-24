@@ -11,8 +11,8 @@
 我们使用`getBoundingClientRect()`来获取首页`h1`标题的宽高以及方位，并将之赋值为`titleConfig`. 当鼠标位置与标题的位置在一定误差范围内时，这时候清除`canvas`并将其style设置成`display: none`，具体代码如下：
 
 ```js
-if ((e.clientX  <  titleConfig.x  +  25  &&  e.clientX  >  titleConfig.x  -  25) &&
-(e.clientY  <  titleConfig.y  +  25  &&  e.clientY  >  titleConfig.y  -  25)) {
+if ((e.clientX < titleConfig.x + 25 && e.clientX > titleConfig.x - 25) &&
+(e.clientY < titleConfig.y + 25 && e.clientY > titleConfig.y - 25)) {
 // do something
 }
 ```
