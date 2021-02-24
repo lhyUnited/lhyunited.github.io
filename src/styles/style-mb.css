@@ -1,0 +1,15 @@
+@media (max-width: 576px) {
+  body {
+    background-color: rgb(255,255,0);
+  }
+  .title h1 {
+    font-size: 32px;
+  }
+  .title {
+    background-color: black;
+    color: #000;
+  }
+  #canvas {
+    display: none;
+  }
+}

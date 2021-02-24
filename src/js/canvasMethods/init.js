@@ -1,3 +1,4 @@
+import { isMobile } from '../utils.js'
 let titleConfig
 let _canvas
 let _ctx
@@ -5,17 +6,15 @@ let _ctx
 function init (canvas, ctx) {
   _canvas = canvas
   _ctx = ctx
-  fullScreen(canvas, ctx);
-  // h1标题的宽高
-  const h1 = document.querySelector('.title h1')
-  titleConfig = h1.getBoundingClientRect()
-  draw(canvas, ctx)
   window.addEventListener('resize', reset);
-  document.addEventListener('mousemove', handleMousemove)
+  document.addEventListener('mousemove', handleMousemove);
+  queryTitleConfig();
+  fullScreen(canvas, ctx);
+  draw(canvas, ctx);
 }
 
 function handleMousemove (e) {
-  reset()
+  resetCanvas()
   const fillStyle = 'rgb(0,0,0)'
   // console.log(e.clientX, e.clientY)
   // if (e.clientX > 511)
@@ -27,12 +26,12 @@ function handleMousemove (e) {
     x: e.clientX,
     y: e.clientY,
   })
-
+  console.log(e.clientX, titleConfig.x)
   if ((e.clientX < titleConfig.x + 25 && e.clientX > titleConfig.x - 25) &&
       (e.clientY < titleConfig.y + 25 && e.clientY > titleConfig.y - 25)) {
     // alert('yes')
     // 锁住鼠标
-    block(e, titleConfig)
+    block()
   }
 }
 function draw (canvas, ctx) {
@@ -41,7 +40,21 @@ function draw (canvas, ctx) {
   const rect = { w: canvas.width, h: canvas.height };
   drawRect(ctx, rect, fillStyle, pos);
 }
+function queryTitleConfig () {
+  // h1标题的宽高
+  const h1 = document.querySelector('.title h1')
+  titleConfig = h1.getBoundingClientRect()
+}
+// 窗口大小变化时：
 function reset () {
+  if (isMobile()) {
+    return
+  }
+  queryTitleConfig()
+  resetCanvas()
+}
+// 单纯重绘canvas
+function resetCanvas () {
   _ctx.beginPath()
   _ctx.clearRect(0, 0, _canvas.width, _canvas.height)
   _ctx.closePath()
@@ -61,18 +74,13 @@ function drawRect (ctx, rect, fillStyle, pos) {
   ctx.closePath();
 }
 // 需要一个函数，当用户手滑的差不多时，直接将标题锁死
-function block (e, titleConfig) {
+function block () {
   // 移除事件
   window.removeEventListener('resize', reset)
   document.removeEventListener('mousemove',handleMousemove)
-  // 重新绘制一个矩形
-  reset()
-  drawRect(_ctx, {
-    w: titleConfig.width + 10,
-    h: titleConfig.height+ 10
-  }, 'rgb(0,0,0)', {
-    x: titleConfig.x - 5,
-    y: titleConfig.y - 5
-  })
+  // 让canvas消失
+  document.querySelector('#canvas').style.display = 'none'
+  document.querySelector('body').style.background = 'rgb(255,255,0)'
+  document.querySelector('.title').style.background = '#000'
 }
 export default init
