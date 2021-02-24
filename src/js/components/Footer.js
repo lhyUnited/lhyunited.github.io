@@ -3,7 +3,7 @@ export default {
   <div class="my-footer">
     <ul>
       <li>
-        <a href="/docs/" target="_blank">文档</a>
+        <a href="/projects/" target="_blank">项目</a>
       </li>
       <li>
         <a href="//2021.tomluvjerry.cn" target="_blank">主页</a>
