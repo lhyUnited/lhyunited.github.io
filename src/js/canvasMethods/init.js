@@ -1,4 +1,4 @@
-import { isMobile } from '../utils.js'
+import { isMobile, isShow } from '../utils.js'
 let titleConfig
 let _canvas
 let _ctx
@@ -24,7 +24,6 @@ function handleMousemove (e) {
     x: e.clientX,
     y: e.clientY,
   })
-  console.log(e.clientX, titleConfig.x)
   if ((e.clientX < titleConfig.x + 25 && e.clientX > titleConfig.x - 25) &&
       (e.clientY < titleConfig.y + 25 && e.clientY > titleConfig.y - 25)) {
     // 锁住鼠标
@@ -44,7 +43,8 @@ function queryTitleConfig () {
 }
 // 窗口大小变化时：
 function reset () {
-  if (isMobile()) {
+  // 如果是手机访问或屏幕宽度小于992px，则停止重绘
+  if (isMobile() || !isShow()) {
     return
   }
   queryTitleConfig()

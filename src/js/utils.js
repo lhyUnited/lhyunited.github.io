@@ -3,3 +3,11 @@ export function isMobile () {
   const ua = window.navigator.userAgent;
   return reg.test(ua)
 }
+
+export function isShow () {
+  const width = '992'
+  if (document.body.scrollWidth <= width) {
+    return false
+  }
+  return true
+}
