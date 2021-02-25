@@ -34,3 +34,4 @@ sass --watch ./ --style compressed --sourcemap=none
 
 ## 开发
 **本项目不基于node.js**，也就是说你可以直接在浏览器打开本地文件，或者使用vscode中的[live server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)插件进行访问
+
