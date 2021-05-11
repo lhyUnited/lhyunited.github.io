@@ -3,7 +3,7 @@ let titleConfig
 let _canvas
 let _ctx
 // 初始化
-function init (canvas, ctx) {
+export function init (canvas, ctx) {
   _canvas = canvas
   _ctx = ctx
   window.addEventListener('resize', reset);
@@ -80,4 +80,3 @@ function block () {
   document.querySelector('body').style.background = 'rgb(255,255,0)'
   document.querySelector('.title').style.background = '#000'
 }
-export default init

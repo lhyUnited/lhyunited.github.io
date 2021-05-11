@@ -1,4 +1,1 @@
-import init from './init.js'
-export default {
-  init
-}
+export {init} from './init.js'
