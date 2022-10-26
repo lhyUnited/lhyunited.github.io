@@ -178,7 +178,7 @@
       handleExport() {
         const container = document.querySelector('#image')
         html2canvas(container).then((canvas) => {
-          const url = canvas.toDataURL('image/png', 1)
+          const url = canvas.toDataURL('image/png')
           this.tagAToDownload({url, title: 'mark'})
         });
       },
