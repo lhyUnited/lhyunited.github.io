@@ -58,6 +58,9 @@ body {
       a:hover:after {
         background-color: #000;
       }
+      a.deprecated {
+        text-decoration: line-through;
+      }
     }
   }
 }
