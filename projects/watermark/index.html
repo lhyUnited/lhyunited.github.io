@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watermark</title>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="upload">
+    <input ref="upload" v-model="file" type="file" name="upload" @change="handleUpload">
+  </div>
+  <div class="image" id="image">
+    <img :src="fakeUrl" alt="image">
+  </div>
+  <div class="action">
+    <label for="text">
+      <span class="label">Text</span>
+      <input maxlength="24" name="text" v-model="text">
+    </label>
+    <label for="color">
+      <span class="label">Text Color</span>
+      <input name="color" type="color" v-model="color">
+    </label>
+    <label for="size">
+      <sapn>Font Size</sapn>
+      <input name="size" type="range" min="12" max="40" v-model="size"></input>
+    </label>
+    <label for="range">
+      <sapn>Rotate</sapn>
+      <input name="range" type="range" min="0" max="100" v-model="rotate"></input>
+    </label>
+    <label for="opacity">
+      <sapn>Opacity</sapn>
+      <input name="opacity" type="range" min="0" max="1" step="0.1" v-model="opacity"></input>
+    </label>
+    <button @click="handleCreate">Apply</button>
+    <button @click="handleExport">Export</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: () => ({
+      file: '',
+      fakeUrl: '',
+      text: '',
+      rotate: 20,
+      size: 20,
+      color: '#ffffff',
+      opacity: 0.2
+    }),
+    watch: {
+      text() {
+        this.append()
+      },
+      rotate() {
+        this.handleRotate()
+      },
+      color() {
+        this.handleColor()
+      },
+      size() {
+        this.handleSize()
+      },
+      opacity() {
+        this.handleOpacity()
+      }
+    },
+    methods: {
+      handleCreate() {
+        this.append()
+      },
+      fileRady() {
+        const input = this.$refs.upload
+        return input && input.files && input.files.length
+      },
+      handleUpload(event) {
+        const input = this.$refs.upload
+        if (!(input && input.files && input.files.length)) return
+        // for the first one
+        const file = input.files[0]
+        this.fakeUrl = window?.URL?.createObjectURL?.(file)
+      },
+      generate() {
+        const div = document.createElement('div')
+        div.innerText = this.text
+        div.classList.add('rotate')
+        div.style.transform = `rotate(-${this.rotate}deg)`
+        div.style.color = `${this.color}`
+        div.style.fontSize = `${this.size}px`
+        div.style.opacity = this.opacity
+        return div
+      },
+      generateContainer() {
+        const div = document.createElement('div')
+        div.setAttribute('id', 'watermark')
+        const container = document.querySelector('#image')
+        container.appendChild(div)
+      },
+      insert(element, selector = 'body') {
+        const target = document.querySelector(selector)
+        target.appendChild(element)
+      },
+      reset() {
+        const container = document.querySelector('#image')
+        const children = container.querySelector('#watermark')
+        children && container.removeChild(children)
+        this.generateContainer()
+        // remove hidden text
+        const text = document.body.querySelector('.visibility-hidden')
+        text && document.body.removeChild(text)
+      },
+      handleRotate() {
+        const mark = document.querySelectorAll('div.rotate')
+        if (!(mark && mark.length)) return
+        mark.forEach(t => {
+          t.style.transform = `rotate(-${this.rotate}deg)`
+        })
+      },
+      handleColor() {
+        const mark = document.querySelectorAll('div.rotate')
+        if (!(mark && mark.length)) return
+        mark.forEach(t => {
+          t.style.color = `${this.color}`
+        })
+      },
+      handleSize() {
+        const mark = document.querySelectorAll('div.rotate')
+        if (!(mark && mark.length)) return
+        mark.forEach(t => {
+          t.style.fontSize = `${this.size}px`
+        })
+      },
+      handleOpacity() {
+        const mark = document.querySelectorAll('div.rotate')
+        if (!(mark && mark.length)) return
+        mark.forEach(t => {
+          t.style.opacity = this.opacity
+        })
+      },
+      append() {
+        if (!this.fileRady()) return
+        // reset first
+        this.reset()
+        if (!this.text) return
+        const div = this.generate()
+        // initial hidden
+        div.classList.add('visibility-hidden')
+        this.insert(div)
+        // calculate span width & height
+        const range = document.createRange()
+        range.setStart(div, 0)
+        range.setEnd(div, div.childNodes.length)
+        const rangeWidth = range.getBoundingClientRect().width
+        const rangeHeight = range.getBoundingClientRect().height
+        // calculate image width & height
+        const image = document.getElementById('image')
+        const imageWidth = image.getBoundingClientRect().width
+        const imageHeight = image.getBoundingClientRect().height
+
+
+        // calculate how much
+        for (let i = 0; i * rangeWidth < imageWidth; i++) {
+          const div = this.generate()
+          div.style.left = `${i * rangeWidth}px`
+          this.insert(div, '#watermark')
+          for (let j = 1; j * rangeHeight < imageHeight; j++) {
+            const div = this.generate()
+            div.style.left = `${i * rangeWidth}px`
+            div.style.top = `${j * rangeHeight}px`
+            this.insert(div, '#watermark')
+          }
+        }
+      },
+      handleExport() {
+        const container = document.querySelector('#image')
+        html2canvas(container).then((canvas) => {
+          const url = canvas.toDataURL('image/png', 1)
+          this.tagAToDownload({url})
+        });
+      },
+      tagAToDownload({url, title = '', target = '_blank'} = {}) {
+        let tagA = document.createElement('a');
+        tagA.setAttribute('href', url);
+        tagA.setAttribute('download', title);
+        tagA.setAttribute('target', target);
+        document.body.appendChild(tagA);
+        tagA.click();
+        document.body.removeChild(tagA);
+      }
+    }
+  })
+</script>
+</body>
+<style>
+  #image {
+    display: flex;
+    position: relative;
+    width: fit-content;
+    overflow: hidden;
+  }
+  .rotate {
+    display: flex;
+    position: absolute;
+    opacity: 0.2;
+    transform: rotate(-20deg);
+    word-break: keep-all;
+  }
+  .visibility-hidden {
+    position: absolute;
+    z-index: -1;
+    visibility: hidden;
+  }
+  .result {
+    margin-top: 20px;
+  }
+  .action {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 20px;
+  }
+</style>
+</html>
