@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Watermark</title>
 </head>
 <body>
@@ -178,7 +179,7 @@
         const container = document.querySelector('#image')
         html2canvas(container).then((canvas) => {
           const url = canvas.toDataURL('image/png', 1)
-          this.tagAToDownload({url})
+          this.tagAToDownload({url, title: 'mark'})
         });
       },
       tagAToDownload({url, title = '', target = '_blank'} = {}) {
