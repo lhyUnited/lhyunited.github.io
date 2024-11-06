@@ -6,8 +6,7 @@ export default class ModeStore {
 
   // 从localstorage读取用户mode
   getMode() {
-    const mode = window.localStorage.getItem('mode')
-    return mode
+    return window.localStorage.getItem('mode')
   }
 
   // 设置localstorage
