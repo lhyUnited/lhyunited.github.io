@@ -40,11 +40,11 @@
   <button @click="toastAlert">TOAST</button>
 
   <h2 id="options-title">Options</h2>
-  <div class="combobox" role="combobox" tabindex="0" @click="openPopup" aria-controls="dialog"
+  <div class="combobox" role="combobox" tabindex="0" @click="openPopup" aria-controls="listbox"
        @keydown.enter="openPopup"
       :aria-expanded="showPopup"
       aria-labelledby="options-title"
-       aria-haspopup="dialog"
+       aria-haspopup="listbox"
   >{{ selectMessage }}</div>
   <van-popup id="dialog" v-model:show="showPopup" round position="bottom">
     <div>
