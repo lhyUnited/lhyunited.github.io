@@ -63,6 +63,11 @@
       <van-button @click="showPopup = false">Close</van-button>
     </div>
   </van-popup>
+
+  <div class="alert-wrapper-test">
+    <van-button @click="onClickAlert('warning', 'this is a alert')">Warning</van-button>
+<!--    <van-button @click="onClickAlert('info', 'this is a info')">Info</van-button>-->
+  </div>
 </div>
 <script>
   const {createApp} = Vue
@@ -122,6 +127,21 @@
         this.selected = item.value
         this.showPopup = false
         this.selectMessage = item.label
+      },
+      onClickAlert(type, message) {
+        const div = document.createElement('div')
+        div.setAttribute('role', 'log')
+        div.setAttribute('aria-live', 'polite')
+        if (type === 'warning') {
+          div.setAttribute('aria-live', 'assertive')
+        }
+        div.innerText = message
+        document.body.appendChild(div)
+        setTimeout(() => {
+          document.body.removeChild(div)
+        }, 3000)
+        // add alert
+        this.addAlert()
       }
     },
     watch: {
