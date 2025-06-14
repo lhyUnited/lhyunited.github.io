@@ -4,35 +4,85 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="stylesheet"
+    href="https://fastly.jsdelivr.net/npm/vant@4/lib/index.css"
+  />
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://fastly.jsdelivr.net/npm/vant@4/lib/vant.min.js"></script>
   <style>
-    .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-        margin: -1px;
-    }
+      .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+          margin: -1px;
+      }
+      .combobox {
+          margin-top: 20px;
+      }
   </style>
   <title>a11y</title>
 </head>
 <body>
 <div id="app">
-  <div @click="onClick" role="button" tabindex="0" @keydown.enter="onClick" @keydown.space.prevent="onClick">Click me</div>
+  <div @click="onClick" role="button" tabindex="0" @keydown.enter="onClick" @keydown.space.prevent="onClick">Click me
+  </div>
   <p></p>
 
   <button @click="toastAlert">TOAST</button>
+
+  <div class="combobox" role="combobox" tabindex="0" @click="openPopup" aria-controls="listbox">{{ selectMessage }}</div>
+  <van-popup v-model:show="showPopup" round position="bottom">
+    <div>
+      <div id="title">Select a option</div>
+      <div class="lisbox" role="lisbox" id="listbox">
+        <div role="option"
+             v-for="item in list"
+             :aria-selected="selected === item.value" @click="handleOption(item)"
+        >
+          {{ item.label }}
+        </div>
+      </div>
+      <van-button @click="showPopup = false">Close</van-button>
+    </div>
+  </van-popup>
 </div>
 <script>
-  const { createApp } = Vue
+  const {createApp} = Vue
   const app = createApp({
     data() {
       return {
-        count: 0
+        count: 0,
+        selectMessage: 'Please select',
+        showPopup: false,
+        selected: null,
+        list: [
+          {
+            id: 1,
+            label: 1,
+            value: 1
+          },
+          {
+            id: 2,
+            label: 2,
+            value: 2
+          },
+          {
+            id: 3,
+            label: 3,
+            value: 3
+          },
+          {
+            id: 4,
+            label: 4,
+            value: 4
+          }
+        ]
       }
     },
     methods: {
@@ -52,9 +102,18 @@
         setTimeout(() => {
           document.body.removeChild(ele)
         }, 3000)
+      },
+      openPopup() {
+        this.showPopup = true
+      },
+      handleOption(item) {
+        this.selected = item.value
+        this.showPopup = false
+        this.selectMessage = item.label
       }
     }
   })
+  app.use(vant)
   app.mount('#app')
 </script>
 </body>
