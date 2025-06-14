@@ -147,7 +147,10 @@
     watch: {
       showPopup(v) {
         if (v) {
-          this.$nextTick(() => {
+          // this.$nextTick(() => {
+          //
+          // })
+          setTimeout(() => {
             const ele = document.querySelector('.option')
             console.log(ele)
             if (ele) {
