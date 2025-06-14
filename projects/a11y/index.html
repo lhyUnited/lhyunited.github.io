@@ -36,13 +36,22 @@
 
   <button @click="toastAlert">TOAST</button>
 
-  <div class="combobox" role="combobox" tabindex="0" @click="openPopup" aria-controls="listbox">{{ selectMessage }}</div>
+  <h2 id="options-title">Options</h2>
+  <div class="combobox" role="combobox" tabindex="0" @click="openPopup" aria-controls="listbox"
+       @keydown.enter="openPopup"
+      :aria-expanded="showPopup"
+      aria-labelledby="options-title"
+       aria-haspopup="listbox"
+  >{{ selectMessage }}</div>
   <van-popup v-model:show="showPopup" round position="bottom">
     <div>
       <div id="title">Select a option</div>
       <div class="lisbox" role="lisbox" id="listbox">
-        <div role="option"
+        <div
+            class="option"
+            role="option"
              v-for="item in list"
+            tabindex="0"
              :aria-selected="selected === item.value" @click="handleOption(item)"
         >
           {{ item.label }}
@@ -110,6 +119,19 @@
         this.selected = item.value
         this.showPopup = false
         this.selectMessage = item.label
+      }
+    },
+    watch: {
+      showPopup(v) {
+        if (v) {
+          this.$nextTick(() => {
+            const ele = document.querySelector('.option')
+            console.log(ele)
+            if (ele) {
+              ele.focus()
+            }
+          })
+        }
       }
     }
   })
