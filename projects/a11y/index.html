@@ -45,6 +45,7 @@
       :aria-expanded="showPopup"
       aria-labelledby="options-title"
        aria-haspopup="listbox"
+       :aria-required="true"
   >{{ selectMessage }}</div>
   <van-popup id="dialog" v-model:show="showPopup" round position="bottom">
     <div>
